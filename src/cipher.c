@@ -172,7 +172,10 @@ int cipher_files(const char *path_to_directory) {
 
         while ((current = readdir(directory)) != NULL) {
             int current_len = strlen_(current->d_name);
-            char *current_path = malloc((len_path_to_directory + current_len + is_not_end_slash(path_to_directory, len_path_to_directory)) * sizeof(char));
+            char *current_path = malloc(
+            (len_path_to_directory + current_len +
+            is_not_end_slash(path_to_directory,
+            len_path_to_directory)) * sizeof(char));
 
             for (int i = 0; i < len_path_to_directory; i++)
                 current_path[i] = path_to_directory[i];
@@ -180,8 +183,12 @@ int cipher_files(const char *path_to_directory) {
             if (path_to_directory[len_path_to_directory - 1] != '/')
                 current_path[len_path_to_directory] = '/';
 
-            for (int i = len_path_to_directory + is_not_end_slash(path_to_directory, len_path_to_directory); i < len_path_to_directory + is_not_end_slash(path_to_directory, len_path_to_directory) + current_len; i++)
-                current_path[i] = current->d_name[i - len_path_to_directory - is_not_end_slash(path_to_directory, len_path_to_directory)];
+            for (int i = len_path_to_directory + is_not_end_slash(path_to_directory,
+                                                            len_path_to_directory);
+                 i < len_path_to_directory + is_not_end_slash(path_to_directory,
+                                        len_path_to_directory) + current_len; i++)
+                current_path[i] = current->d_name[i - len_path_to_directory -
+                is_not_end_slash(path_to_directory, len_path_to_directory)];
 
             if (current_len > 1 && current->d_name[current_len - 2] == '.') {
                 if (current->d_name[current_len - 1] == 'c') {
@@ -274,3 +281,4 @@ int strlen_(const char *str) {
 
     return len;
 }
+
